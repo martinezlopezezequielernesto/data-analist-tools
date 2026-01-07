@@ -13,5 +13,5 @@ export default function PageTitle(){
   const title = activeRoute ? activeRoute.title : "Not Found Title"
 
   // Devuelve título dinámico
-  return <h1 className="pl-8 w-full h-full flex justify-center items-center text-4xl font-bold text-white">{title}</h1>;
+  return <h1 className="pl-8 w-full h-full flex justify-center items-center text-lg sm:text-2xl lg:text-4xl font-bold text-white">{title}</h1>;
 }
