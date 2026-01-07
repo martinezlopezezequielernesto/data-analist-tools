@@ -111,7 +111,7 @@ export default function Page() {
         <Input value={columnas} onChange={setColumnas} placeholder="Ingrese las columnas...."/>
       </FormField>
 
-      <div className="w-full flex gap-4">
+      <div className="w-full flex flex-wrap gap-3">
         {Object.keys(diccionario_columnas).map((columna, index) => (
           <Badge key={index} value={columna} onClick={() => handleBadge(columna)} />
         ))}
@@ -119,16 +119,15 @@ export default function Page() {
 
       <GridTwoColumns>
         <Stack>
-          <Textarea value={query} placeholder="Escriba su query aqui...." onChange={setQuery} rows={12}/>
+          <Textarea value={query} placeholder="Escriba su query aqui...." onChange={setQuery} rows={10}/>
           <Button title="Crear Query" onClick={crearConsulta}/>
         </Stack>
         <Stack>
-          <Textarea value={resultado} placeholder="Escriba su query aqui...." onChange={setResultado} rows={12}/>
+          <Textarea value={resultado} placeholder="Aqui se escribira la query...." onChange={setResultado} rows={10}/>
           <ButtonCopy text={resultado} type="secondary"/>
         </Stack>
       </GridTwoColumns>
       
-
     </PageContainer>
   );
 }
