@@ -28,9 +28,9 @@ export default function Sidebar() {
             {routes.slice(0, -1).map((item, index) => {
               const isActive = pathname === item.href;
               return (
-                <li key={index} className={"w-full rounded-l-full text-lg pl-4 py-3 " + `font-extrabold transition ${isActive? "bg-white text-green-600": "text-white hover:bg-green-200 hover:text-green-600"}`}>
+                <li key={index} className={"w-full rounded-l-full text-base md:text-lg pl-4 py-3 " + `font-extrabold transition ${isActive? "bg-white text-green-600": "text-white hover:bg-green-200 hover:text-green-600"}`}>
                   <Link key={item.name} href={item.href} className="w-full flex justify-start items-center gap-4">
-                    <item.icon size={20}/>
+                    <item.icon className="size-4 md:size-5"/>
                     <span className="">{item.name}</span>
                   </Link>
                 </li>
@@ -40,9 +40,9 @@ export default function Sidebar() {
       </nav>
       <div className="pl-4 flex-1">
         <ul className="h-full w-full flex flex-col justify-end">
-            <li className={"w-full rounded-l-full text-lg pl-4 py-4 " + `font-extrabold transition ${pathname === settings.href? "bg-white text-green-600": "text-white hover:bg-green-200 hover:text-green-600"}`}>
+            <li className={"w-full rounded-l-full text-base md:text-lg pl-4 py-4 " + `font-extrabold transition ${pathname === settings.href? "bg-white text-green-600": "text-white hover:bg-green-200 hover:text-green-600"}`}>
               <Link key={settings.name} href={settings.href} className="w-full flex justify-start items-center gap-4">
-                <settings.icon size={20}/>
+                <settings.icon className="size-4 md:size-5"/>
                 <span className="">{settings.name}</span>
               </Link>
             </li>
