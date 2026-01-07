@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.variable} antialiased`}>
         <div className="w-screen h-screen flex flex-row">
-          <div className="w-54 h-full bg-green-600">
+          <div className="w-44 md:w-54 h-full bg-green-600">
             <Sidebar/>
           </div>
           <div className="flex-1 h-full bg-green-50">
@@ -32,8 +32,8 @@ export default function RootLayout({
               <header className="h-20 w-full p-4 bg-green-600 border-b-2 border-b-gray-200">
                 <PageTitle/>
               </header>
-              <main className="flex-1 w-full bg-white">
-                <div className="w-full h-full p-10">
+              <main className="flex-1 w-full py-10 bg-white overflow-hidden">
+                <div className="w-full h-full px-10 overflow-x-hidden overflow-y-auto">
                     {children}
                 </div>
               </main>
