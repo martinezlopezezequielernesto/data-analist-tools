@@ -1,5 +1,6 @@
 import { FaHome, FaTable, FaDatabase, FaSearch, FaCalculator, FaCog } from "react-icons/fa";
 import { IconType } from "react-icons";
+import { RiFileTransferFill } from "react-icons/ri";
 
 export interface Route {
   name: string;
@@ -19,7 +20,7 @@ export const routes: Route[] = [
   {
     name: "Sheets",
     href: "/sheets",
-    title: "Hojas de Cálculo",
+    title: "Buscador de Sheets",
     icon: FaTable,
   },
   {
@@ -34,12 +35,20 @@ export const routes: Route[] = [
     title: "Generador de consultas",
     icon: FaSearch,
   },
+    {
+    name: "Migracion",
+    href: "/migracion",
+    title: "Migracion de Funciones",
+    icon: RiFileTransferFill,
+  },
+  /*
   {
     name: "Formulas",
     href: "/formulas",
     title: "Calculadora de fórmulas",
     icon: FaCalculator,
   },
+  */
   {
     name: "Settings",
     href: "/settings",
