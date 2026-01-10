@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
-    const settings = routes[routes.length - 1];
+  const settings = routes[routes.length - 1];
+
   return (
     <aside className="h-full flex flex-col gap-8 py-8">
       <div className="w-full flex justify-center items-center text-xl font-semibold text-white">
@@ -28,8 +29,8 @@ export default function Sidebar() {
             {routes.slice(0, -1).map((item, index) => {
               const isActive = pathname === item.href;
               return (
-                <li key={index} className={"w-full rounded-l-full text-base md:text-lg pl-4 py-3 " + `font-extrabold transition ${isActive? "bg-white text-green-600": "text-white hover:bg-green-200 hover:text-green-600"}`}>
-                  <Link key={item.name} href={item.href} className="w-full flex justify-start items-center gap-4">
+                <li key={index} className={"w-full rounded-l-full text-base md:text-lg  " + `font-extrabold transition ${isActive? "bg-white text-green-600": "text-white hover:bg-green-800 hover:text-white"}`}>
+                  <Link key={item.name} href={item.href} className="w-full pl-4 py-3 flex justify-start items-center gap-4">
                     <item.icon className="size-4 md:size-5"/>
                     <span className="">{item.name}</span>
                   </Link>
@@ -40,8 +41,8 @@ export default function Sidebar() {
       </nav>
       <div className="pl-4 flex-1">
         <ul className="h-full w-full flex flex-col justify-end">
-            <li className={"w-full rounded-l-full text-base md:text-lg pl-4 py-4 " + `font-extrabold transition ${pathname === settings.href? "bg-white text-green-600": "text-white hover:bg-green-200 hover:text-green-600"}`}>
-              <Link key={settings.name} href={settings.href} className="w-full flex justify-start items-center gap-4">
+            <li className={"w-full rounded-l-full text-base md:text-lg " + `font-extrabold transition ${pathname === settings.href? "bg-white text-green-600": "text-white hover:bg-green-800 hover:text-white"}`}>
+              <Link key={settings.name} href={settings.href} className="w-full pl-4 py-3 flex justify-start items-center gap-4">
                 <settings.icon className="size-4 md:size-5"/>
                 <span className="">{settings.name}</span>
               </Link>
