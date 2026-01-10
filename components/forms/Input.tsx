@@ -27,7 +27,7 @@ export default function Input({
   return (
     <input
       type={type}
-      className="w-full p-2 text-sm md:text-base lg:text-lg  border-0 border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-600"
+      className="w-full p-2 text-sm md:text-base lg:text-lg  border border-gray-300 rounded-md focus:border-0 focus:outline-none focus:ring-1 focus:ring-green-600"
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
