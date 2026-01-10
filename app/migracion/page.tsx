@@ -5,7 +5,7 @@ import Button from "@/components/page/Button";
 import ButtonCopy from "@/components/page/ButtonCopy";
 import GridTwoColumns from "@/components/page/GridTwoColumns";
 import Stack from "@/components/page/Stack";
-import { getFunctionName, getIdSpreadsheetOrigen } from "@/utils/funciones";
+import { getFunctionName, getIdSpreadsheetDestino, getIdSpreadsheetOrigen, getNombreHojaDestino, getNombreHojaOrigen, getNombresColumnasACopiarDeOrigen, getRangoALimpiarEnDestino } from "@/utils/funciones";
 import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 
@@ -30,25 +30,25 @@ export default function Page(){
 
     // Elementos si o si no opcionales
     const nombreFuncion: string = getFunctionName(funcionComoTexto);
-    if (!nombreFuncion) throw new Error("No se pudo obtener el nombre de la función");
+    //if (!nombreFuncion) throw new Error("No se pudo obtener el nombre de la función");
 
     const idSpreadsheetOrigen: string = getIdSpreadsheetOrigen(funcionComoTexto);
-    if (!idSpreadsheetOrigen) throw new Error("No se pudo obtener el id de origen");
+    //if (!idSpreadsheetOrigen) throw new Error("No se pudo obtener el id de origen");
 
-    const nombreHojaOrigen: string = getIdSpreadsheetOrigen(funcionComoTexto);
-    if (!nombreHojaOrigen) throw new Error("No se pudo obtener el nombre de solapa de origen");
+    const nombreHojaOrigen: string = getNombreHojaOrigen(funcionComoTexto);
+    //if (!nombreHojaOrigen) throw new Error("No se pudo obtener el nombre de solapa de origen");
 
-    const idSpreadsheetDestino: string = getIdSpreadsheetOrigen(funcionComoTexto);
-    if (!idSpreadsheetDestino) throw new Error("No se pudo obtener el id de destino");
+    const idSpreadsheetDestino: string = getIdSpreadsheetDestino(funcionComoTexto);
+    //if (!idSpreadsheetDestino) throw new Error("No se pudo obtener el id de destino");
 
-    const nombreHojaDestino: string = getIdSpreadsheetOrigen(funcionComoTexto);
-    if (!nombreHojaDestino) throw new Error("No se pudo obtener el nombre de solapa de destino");
+    const nombreHojaDestino: string = getNombreHojaDestino(funcionComoTexto);
+    //if (!nombreHojaDestino) throw new Error("No se pudo obtener el nombre de solapa de destino");
 
-    const rangoALimpiarEnDestino: string = getIdSpreadsheetOrigen(funcionComoTexto);
-    if (!rangoALimpiarEnDestino) throw new Error("No se pudo obtener el rango alimpiar en el destino");
+    const rangoALimpiarEnDestino: string = getRangoALimpiarEnDestino(funcionComoTexto);
+    //if (!rangoALimpiarEnDestino) throw new Error("No se pudo obtener el rango alimpiar en el destino");
 
-    const nombresColumnasACopiarDeOrigen: string = getIdSpreadsheetOrigen(funcionComoTexto);
-    if (!nombresColumnasACopiarDeOrigen) throw new Error("No se pudo obtener las columnas a copiar del origen");
+    const nombresColumnasACopiarDeOrigen: string = getNombresColumnasACopiarDeOrigen(funcionComoTexto);
+    //if (!nombresColumnasACopiarDeOrigen) throw new Error("No se pudo obtener las columnas a copiar del origen");
 
     // 6️⃣ Generar la nueva función
     return `
