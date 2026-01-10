@@ -33,7 +33,7 @@ export default function RootLayout({
                 <PageTitle/>
               </header>
               <main className="flex-1 w-full py-10 bg-white overflow-hidden">
-                <div className="w-full h-full px-10 overflow-x-hidden overflow-y-auto">
+                <div className="w-full h-full py-1 px-10 overflow-x-hidden overflow-y-auto">
                     {children}
                 </div>
               </main>
