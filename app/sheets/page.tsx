@@ -1,5 +1,13 @@
+"use client"
+import Input from "@/components/forms/Input";
+import PageContainer from "@/components/main/PageContainer";
+import Button from "@/components/page/Button";
+
 export default function Page() {
   return (
-    <p className="">Sheets Page</p>
+    <PageContainer>
+      <Input value="" placeholder="Ingrese el id de la Sheet" onChange={()=>{}}/>
+      <Button title="Buscar Sheet"/>
+    </PageContainer>
   );
 }
