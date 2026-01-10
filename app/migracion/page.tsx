@@ -63,7 +63,7 @@ export default function Page(){
       headerRow: 1,
       targetClearRange: "${rangoALimpiarEnDestino}",
 
-      sourceColumnNames: ${JSON.stringify(nombresColumnasACopiarDeOrigen)},
+      sourceColumnNames: ${nombresColumnasACopiarDeOrigen},
 
       applyFilter: false,
       filterColumnName: "columna_a_filtrar",
