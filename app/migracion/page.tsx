@@ -5,6 +5,7 @@ import Button from "@/components/page/Button";
 import ButtonCopy from "@/components/page/ButtonCopy";
 import GridTwoColumns from "@/components/page/GridTwoColumns";
 import Stack from "@/components/page/Stack";
+import { getFunctionName, getIdSpreadsheetOrigen } from "@/utils/funciones";
 import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 
@@ -26,63 +27,43 @@ export default function Page(){
 
   function generarFuncionDesdeString(funcionComoTexto: string): string {
     if(funcionComoTexto.trim() === "") return "";
-    // 1️⃣ Obtener nombre de la función
-    const matchNombre = funcionComoTexto.match(/function\s+([a-zA-Z0-9_]+)/);
-    const nombreFuncion: string = matchNombre ? matchNombre[1] : "";
 
-    if (!nombreFuncion) {
-      throw new Error("No se pudo obtener el nombre de la función");
-    }
+    // Elementos si o si no opcionales
+    const nombreFuncion: string = getFunctionName(funcionComoTexto);
+    if (!nombreFuncion) throw new Error("No se pudo obtener el nombre de la función");
 
-    // 2️⃣ Extraer el contenido de "variables = ..."
-    const matchVariables = funcionComoTexto.match(/var\s+variables\s*=\s*([\s\S]*?);/);
-    if (!matchVariables) {
-      throw new Error("No se encontró la variable 'variables'");
-    }
+    const idSpreadsheetOrigen: string = getIdSpreadsheetOrigen(funcionComoTexto);
+    if (!idSpreadsheetOrigen) throw new Error("No se pudo obtener el id de origen");
 
-    let variablesRaw: string = matchVariables[1].trim();
+    const nombreHojaOrigen: string = getIdSpreadsheetOrigen(funcionComoTexto);
+    if (!nombreHojaOrigen) throw new Error("No se pudo obtener el nombre de solapa de origen");
 
-    // 3️⃣ Normalizar CASO 2 (array → objeto)
-    if (variablesRaw.startsWith("[")) {
-      variablesRaw = variablesRaw
-        .replace(/^\[\s*/, "")
-        .replace(/\s*\]$/, "");
-    }
+    const idSpreadsheetDestino: string = getIdSpreadsheetOrigen(funcionComoTexto);
+    if (!idSpreadsheetDestino) throw new Error("No se pudo obtener el id de destino");
 
-    // 4️⃣ Convertir a objeto JS
-    // ⚠️ eval devuelve any
-    const variables: VariablesConfig = eval("(" + variablesRaw + ")");
+    const nombreHojaDestino: string = getIdSpreadsheetOrigen(funcionComoTexto);
+    if (!nombreHojaDestino) throw new Error("No se pudo obtener el nombre de solapa de destino");
 
-    // 5️⃣ Validar campos requeridos
-    const requiredKeys: (keyof VariablesConfig)[] = [
-      "idSpreadsheetOrigen",
-      "nombreHojaOrigen",
-      "idSpreadsheetDestino",
-      "nombreHojaDestino",
-      "nombresColumnasACopiarDeOrigen",
-      "rangoALimpiarEnDestino"
-    ];
+    const rangoALimpiarEnDestino: string = getIdSpreadsheetOrigen(funcionComoTexto);
+    if (!rangoALimpiarEnDestino) throw new Error("No se pudo obtener el rango alimpiar en el destino");
 
-    requiredKeys.forEach(key => {
-      if (!variables[key]) {
-        throw new Error(`Falta la propiedad requerida: ${key}`);
-      }
-    });
+    const nombresColumnasACopiarDeOrigen: string = getIdSpreadsheetOrigen(funcionComoTexto);
+    if (!nombresColumnasACopiarDeOrigen) throw new Error("No se pudo obtener las columnas a copiar del origen");
 
     // 6️⃣ Generar la nueva función
     return `
   function ${nombreFuncion}() {
     BidcomData.sheetsToSheets({
-      sourceSpreadsheetId: "${variables.idSpreadsheetOrigen}",
-      sourceSheetName: "${variables.nombreHojaOrigen}",
+      sourceSpreadsheetId: "${idSpreadsheetOrigen}",
+      sourceSheetName: "${nombreHojaOrigen}",
 
-      targetSpreadsheetId: "${variables.idSpreadsheetDestino}",
-      targetSheetName: "${variables.nombreHojaDestino}",
+      targetSpreadsheetId: "${idSpreadsheetDestino}",
+      targetSheetName: "${nombreHojaDestino}",
 
       headerRow: 1,
-      targetClearRange: "${variables.rangoALimpiarEnDestino}",
+      targetClearRange: "${rangoALimpiarEnDestino}",
 
-      sourceColumnNames: ${JSON.stringify(variables.nombresColumnasACopiarDeOrigen)},
+      sourceColumnNames: ${JSON.stringify(nombresColumnasACopiarDeOrigen)},
 
       applyFilter: false,
       filterColumnName: "columna_a_filtrar",
@@ -113,7 +94,7 @@ export default function Page(){
               <FiTrash2 className="size-4 md:size-6 text-gray-800 group-hover:text-white"/>
             </button>
           </div>
-          <Button title="Migrar Funcion" onClick={procesarFuncion}/>
+          <Button title="Migrar Funcion Sheet" onClick={procesarFuncion}/>
         </Stack>
         <Stack>
           <Textarea value={resultado} placeholder="Aqui se escribira la nueva funcion...." onChange={setResultado} rows={rows}/>
