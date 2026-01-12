@@ -5,7 +5,6 @@ import Input from "@/components/forms/Input";
 import Label from "@/components/forms/Label";
 import GridTwoColumns from "@/components/page/GridTwoColumns";
 import PageContainer from "@/components/main/PageContainer";
-import Paragraph from "@/components/page/Paragraph";
 import Stack from "@/components/page/Stack";
 import { useMemo, useState } from "react";
 import Badge from "@/components/page/Badge";
@@ -13,6 +12,7 @@ import Textarea from "@/components/forms/Textarea";
 import Button from "@/components/page/Button";
 import ButtonCopy from "@/components/page/ButtonCopy";
 import { getHeaderRange } from "@/utils/funciones";
+import CodeBlock from "@/components/page/CodeBlock";
 
 
 
@@ -119,11 +119,11 @@ export default function Page() {
 
       <GridTwoColumns>
         <Stack>
-          <Textarea value={query} placeholder="Escriba su query aqui...." onChange={setQuery} rows={10}/>
+          <Textarea value={query} placeholder="Escriba su query aqui...." onChange={setQuery} height="h-100"/>
           <Button title="Crear Query" onClick={crearConsulta}/>
         </Stack>
         <Stack>
-          <Textarea value={resultado} placeholder="Aqui se escribira la query...." onChange={setResultado} rows={10}/>
+          <CodeBlock code={resultado} language={"sql"} height="h-100"/>
           <ButtonCopy text={resultado} type="secondary"/>
         </Stack>
       </GridTwoColumns>

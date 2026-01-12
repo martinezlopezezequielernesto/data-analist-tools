@@ -3,3 +3,23 @@
 body {
   font-family: var(--font-montserrat), sans-serif;
 }
+
+/* Normaliza el HTML generado por Shiki */
+.code-container pre {
+  margin: 0 !important;
+  padding: 12px;
+  min-height: 100%;
+  max-width: 100%;
+  width: fit-content;
+  box-sizing: border-box;
+  background: transparent !important;
+}
+
+.code-container code {
+  display: block;
+  min-width: 100%;
+}
+
+.code-container span {
+  white-space: pre;
+}

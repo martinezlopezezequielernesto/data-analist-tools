@@ -64,6 +64,11 @@ export function getRangoALimpiarEnDestino(text: string): string {
   const match = text.match(regex);
   return match ? match[1] : "";
 }
+
+export function removeSingleLineComments(code: string): string {
+  return code.replace(/(^|\s)\/\/.*$/gm, "");
+}
+
 /*
   idSpreadsheetOrigen: string;
   nombreHojaOrigen: string;
