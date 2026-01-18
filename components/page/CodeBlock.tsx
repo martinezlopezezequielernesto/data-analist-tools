@@ -2,20 +2,20 @@
 
 import { createHighlighter, type Highlighter } from "shiki";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 type CodeBlockProps = {
   code: string;
   language: string;
-  theme?: string;
   height?: string;
 };
 
 let highlighter: Highlighter | null = null;
 
-async function initHighlighter(theme: string) {
+async function initHighlighter() {
   if (!highlighter) {
     highlighter = await createHighlighter({
-      themes: [theme],
+      themes: ["github-dark", "github-light"],
       langs: [
         "javascript",
         "typescript",
@@ -25,7 +25,7 @@ async function initHighlighter(theme: string) {
         "css",
         "html",
         "python",
-        "sql"
+        "sql",
       ],
     });
   }
@@ -35,20 +35,24 @@ async function initHighlighter(theme: string) {
 export default function CodeBlock({
   code,
   language,
-  theme = "github-dark",
-  height = "h-auto"
+  height = "h-auto",
 }: CodeBlockProps) {
   const [html, setHtml] = useState("");
+  const { theme: ThemeApp } = useTheme();
 
   useEffect(() => {
     let mounted = true;
 
-    initHighlighter(theme).then((hl) => {
+    initHighlighter().then((hl) => {
       if (!mounted) return;
+
+      const shikiTheme =
+        ThemeApp === "dark" ? "github-dark" : "github-light";
+
       setHtml(
         hl.codeToHtml(code, {
           lang: language,
-          theme,
+          theme: shikiTheme,
         })
       );
     });
@@ -56,10 +60,15 @@ export default function CodeBlock({
     return () => {
       mounted = false;
     };
-  }, [code, language, theme]);
+  }, [code, language, ThemeApp]);
 
   return (
-    <div className={height + " w-full relative overflow-hidden rounded-md bg-[#0d1117]"}>
+    <div
+      className={
+        height +
+        " w-full relative overflow-hidden border-2 rounded-md border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800/75 "
+      }
+    >
       <div
         className="code-container w-full h-full overflow-auto"
         dangerouslySetInnerHTML={{ __html: html }}

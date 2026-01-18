@@ -33,6 +33,7 @@ export default function Page() {
         const columnaLimpia = columnaOriginal
           .trim() // espacios inicio/fin
           .toLowerCase() // minúsculas
+          .replace("ñ", "ni")// reeplazamos la ñ por ni para una mejor interpretacion
           .normalize("NFD") // separa letras y acentos
           .replace(/[\u0300-\u036f]/g, "") // quita acentos
           .replace(/\s+/g, "_"); // espacios → _
@@ -119,11 +120,11 @@ export default function Page() {
 
       <GridTwoColumns>
         <Stack>
-          <Textarea value={query} placeholder="Escriba su query aqui...." onChange={setQuery} height="h-100"/>
+          <Textarea value={query} placeholder="Escriba su query aqui...." onChange={setQuery} height="h-80"/>
           <Button title="Crear Query" onClick={crearConsulta}/>
         </Stack>
         <Stack>
-          <CodeBlock code={resultado} language={"sql"} height="h-100"/>
+          <CodeBlock code={resultado} language={"sql"} height="h-80"/>
           <ButtonCopy text={resultado} type="secondary"/>
         </Stack>
       </GridTwoColumns>
