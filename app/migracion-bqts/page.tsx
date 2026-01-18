@@ -54,7 +54,7 @@ export default function Page(){
       spreadsheetId: "${idSpreadsheetDestino}",
       sheetName: "${nombreHojaDestino}",
       batchSize: 3000,
-      query: ${query}
+      query: "${query}"
     });
   }
   `.trim();
