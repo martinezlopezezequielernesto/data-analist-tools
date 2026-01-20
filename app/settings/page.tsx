@@ -1,25 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import PageContainer from "@/components/main/PageContainer";
 import Paragraph from "@/components/page/Paragraph";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { useTheme } from "next-themes";
 
 export default function Page() {
-  const [theme, setTheme] = useState<string | null>(null);
-
+  const { setTheme } = useTheme();
+  
   // Cargar tema desde localStorage al montar
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     console.log("Theme: "+savedTheme)
     if (savedTheme) {
       setTheme(savedTheme);
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+      //document.documentElement.classList.toggle("dark", savedTheme === "dark");
     } else {
       // Si no hay tema guardado, usar el del sistema
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       setTheme(prefersDark ? "dark" : "light");
-      document.documentElement.classList.toggle("dark", prefersDark);
+      //document.documentElement.classList.toggle("dark", prefersDark);
     }
   }, []);
 
@@ -27,10 +28,9 @@ export default function Page() {
   const handleThemeChange = (newTheme: "light" | "dark") => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    //document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
-  if (!theme) return null; // Evitar render antes de montar
 
   return (
     <PageContainer>
