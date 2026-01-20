@@ -10,21 +10,13 @@ import { getFunctionName, getIdSpreadsheetDestino, getIdSpreadsheetOrigen, getNo
 import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 
-interface VariablesConfig {
-  idSpreadsheetOrigen: string;
-  nombreHojaOrigen: string;
-  idSpreadsheetDestino: string;
-  nombreHojaDestino: string;
-  nombresColumnasACopiarDeOrigen: string[];
-  rangoALimpiarEnDestino: string;
-}
-
-
 export default function Page(){
   const [funcion, setFuncion] = useState<string>("");
   const [resultado, setResultado] = useState<string>("");
-  const resetBase = () => setFuncion("");
-  const rows = 18;
+  const resetBase = () => {
+    setFuncion("");
+    setResultado("");
+  }
 
   function generarFuncionDesdeString(funcionTexto: string): string {
     if(funcionTexto.trim() === "") return "";

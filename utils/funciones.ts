@@ -24,6 +24,19 @@ export function getHeaderRange(range: string): string {
 
 
 /// RECICLADOS
+
+export function agregarSlashesStringQuery(base: string): string{
+      // Separar por líneas
+    const lines = base.split("\n");
+
+    // Agregar "/" al final de cada línea y unirlas con salto de línea
+    const formattedQuery = lines.map(line => line + " \\").join("\n");
+
+    // Crear la variable query
+    const query = formattedQuery;
+
+    return query;
+}
 export function getFunctionName(code: string): string {
   const match = code.match(/function\s+([a-zA-Z_$][\w$]*)/);
   return match ? match[1].toString().trim() : "";
@@ -79,8 +92,14 @@ export function getProjectId(text: string): string {
 
 export function getQuery(text: string): string {
   const ejemplo1: string = getQueryEjemplo1(text);
-  if(ejemplo1) return ejemplo1;
-
+  if (ejemplo1) {
+    /*
+    if (ejemplo1.startsWith('"') && ejemplo1.endsWith('"')) {
+      return ejemplo1.slice(1, -1);
+    }
+    */
+    return ejemplo1;
+  }
   const ejemplo2: string = getQueryEjemplo2(text);
   if(ejemplo2) return ejemplo2;
 
@@ -102,11 +121,10 @@ export function getQueryEjemplo1(text: string): string {
   "campo1 " +
   "FROM tabla";
   */
-  const regex = /var\s+query\s*=\s*((?:"[^"]*"\s*\+\s*)+"[^"]*")\s*;/;
+  const regex = /(var|let|const)\s+query\s*=\s*((?:"[^"]*"\s*\+\s*)+"[^"]*")\s*;/;
   const match = text.match(regex);
-  return match ? match[1] : "";
+  return match ? match[2] : "";
 }
-
 export function getQueryEjemplo2(text: string): string {
   /*
   var query = "\
@@ -114,11 +132,10 @@ export function getQueryEjemplo2(text: string): string {
   FROM tabla \
   ";
   */
-  const regex = /var\s+query\s*=\s*"([\s\S]*?)"\s*;/;
+  const regex = /(var|let|const)\s+query\s*=\s*"([\s\S]*?)"\s*;/;
   const match = text.match(regex);
-  return match ? match[1] : "";
+  return match ? "\"" + match[2] + "\"" : "";
 }
-
 export function getQueryEjemplo3(text: string): string {
   /*
   var query = '\
@@ -126,11 +143,14 @@ export function getQueryEjemplo3(text: string): string {
   FROM tabla \
   ';
   */
-  const regex = /var\s+query\s*=\s*'([\s\S]*?)'\s*;/;
+  const regex = /(var|let|const)\s+query\s*=\s*'([\s\S]*?)'\s*;/;
   const match = text.match(regex);
-  return match ? match[1] : "";
+  return match
+    ? "\"" + match[2].trimEnd() +
+        (!match[2].trimEnd().endsWith("\\") ? " \\" : "") +
+        "\n\t\""
+    : "";
 }
-
 export function getQueryEjemplo4(text: string): string {
   /*
   var query = `
@@ -138,10 +158,13 @@ export function getQueryEjemplo4(text: string): string {
     FROM tabla
   `;
   */
-  const regex = /var\s+query\s*=\s*`([\s\S]*?)`;/;
+  const regex = /(var|let|const)\s+query\s*=\s*`([\s\S]*?)`;/;
   const match = text.match(regex);
-  return match ? match[1] : "";
+  return match
+    ? "\"" + agregarSlashesStringQuery(match[2].replaceAll("\\", "").trimEnd()) + "\n\t\""
+    : "";
 }
+
 
 /// FIN BIG QUERY 
 

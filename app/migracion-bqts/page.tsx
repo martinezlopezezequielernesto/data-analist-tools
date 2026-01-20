@@ -10,20 +10,13 @@ import { getFunctionName, getIdSpreadsheetDestino, getIdSpreadsheetOrigen, getNo
 import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 
-interface VariablesConfig {
-  idSpreadsheetOrigen: string;
-  nombreHojaOrigen: string;
-  idSpreadsheetDestino: string;
-  nombreHojaDestino: string;
-  nombresColumnasACopiarDeOrigen: string[];
-  rangoALimpiarEnDestino: string;
-}
-
-
 export default function Page(){
   const [funcion, setFuncion] = useState<string>("");
   const [resultado, setResultado] = useState<string>("");
-  const resetBase = () => setFuncion("");
+  const resetBase = () => {
+    setFuncion("");
+    setResultado("");
+  }
 
   function generarFuncionDesdeString(funcionTexto: string): string {
     if(funcionTexto.trim() === "") return "";
@@ -54,7 +47,7 @@ export default function Page(){
       spreadsheetId: "${idSpreadsheetDestino}",
       sheetName: "${nombreHojaDestino}",
       batchSize: 3000,
-      query: "${query}"
+      query: ${query}
     });
   }
   `.trim();

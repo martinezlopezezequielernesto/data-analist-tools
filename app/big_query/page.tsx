@@ -9,6 +9,7 @@ import Stack from "@/components/page/Stack";
 import PageContainer from "@/components/main/PageContainer";
 import CodeBlock from "@/components/page/CodeBlock";
 import { FiTrash2 } from "react-icons/fi";
+import { agregarSlashesStringQuery } from "@/utils/funciones";
 
 export default function Page() {
   const [base, setBase] = useState<string>("");
@@ -19,14 +20,8 @@ export default function Page() {
       setResultado("");
       return;
     }
-    // Separar por líneas
-    const lines = base.split("\n");
 
-    // Agregar "/" al final de cada línea y unirlas con salto de línea
-    const formattedQuery = lines.map(line => line + " \\").join("\n");
-
-    // Crear la variable query
-    const query = formattedQuery;
+    const query = agregarSlashesStringQuery(base);
 
     // Guardarlo en el estado resultado (opcional)
     setResultado(query);
