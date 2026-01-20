@@ -63,13 +63,15 @@ export default function Page(){
       setResultado("");
     }
   };
-
+  const placeholder = `  Escriba la funcion aqui.... 
+  NO te olvides el ;
+  `
   return (
     <PageContainer>
       <GridTwoColumns>
         <Stack>
           <div className="relative">
-            <Textarea value={funcion} placeholder="Escriba la funcion aqui...." onChange={setFuncion} height="h-125"/>
+            <Textarea value={funcion} placeholder={placeholder} onChange={setFuncion} height="h-125"/>
             <button onClick={resetBase} className="absolute top-3 right-3 p-3 rounded-full bg-gray-300 hover:bg-green-600 transition-colors duration-300 cursor-pointer group">
               <FiTrash2 className="size-4 md:size-6 text-gray-800 group-hover:text-white"/>
             </button>
